@@ -10,7 +10,7 @@ const gameState = {
     y: 100,
     width: 300,
     height: 50,
-    color: "#FF0000",
+    color: "#9ad35f",
   },
   pointer: {
     x: 0,
@@ -113,21 +113,31 @@ function draw() {
   // clear canvas
   context.clearRect(0, 0, canvas.width, canvas.height)
 
+  // draw background
+  context.beginPath()
+  context.rect(0, 0, canvas.width, canvas.height)
+  context.fillStyle = "#87cefa"
+  context.fill()
+  context.closePath()
+
   // draw racket
   const {x, y, width, height} = gameState.racket
   context.beginPath()
-  context.rect(x - width/ 2, y - height/2, width, height)
+  context.rect(x - width / 2, y - height /2, width, height)
   context.fillStyle = gameState.racket.color
   context.fill()
+  context.lineWidth = 1
+  context.strokeStyle = "black"
+  context.stroke()
   context.closePath()
-  
+
   // draw ball
-  context.lineWidth = 3
   context.beginPath()
   context.strokeStyle = gameState.ball.color
-  context.fillStyle = gameState.ball.color
+  context.fillStyle = "green"
   context.fill()
   context.arc(gameState.ball.x, gameState.ball.y, gameState.ball.radius, 0, 2 * Math.PI, false);
+  context.lineWidth = 1
   context.fill()
   context.stroke()
   context.closePath()
@@ -140,6 +150,9 @@ function draw() {
     context.rect(x - width * 0.5, y - height * 0.1, width, height * 0.2)
     context.fillStyle = color
     context.fill()
+    context.lineWidth = 1
+    context.strokeStyle = "black"
+    context.stroke()
     context.closePath()
   }
   
