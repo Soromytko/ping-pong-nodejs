@@ -6,6 +6,9 @@ npm install
 npm start
 ```
 
+# Play
+https://soromytko.github.io/ping-pong-nodejs/
+
 # Задание
 Реализовать игру модификацию игры Pong со следующими правилами
 
