@@ -2,12 +2,25 @@ canvas = document.getElementById('canvas')
 gl = canvas.getContext('webgl')
       
 var vertices = [
-	-1, -1, 0,
-	0, 1, 0,
-	1, -1, 0, 
+	-0.5, -0.5, 0,
+	-0.5,+ 0.5, 0,
+	+0.5, -0.5, 0,
+	
+	-0.5, +0.5, 0,
+	+0.5, +0.5, 0,
+	+0.5, -0.5, 0
+
 ]
 
-indices = [0,1,2]
+indices = [0, 1, 2, 3, 4, 5]
+
+function createShader(type, sourceCode) {
+	const shader = gl.createShader(type)
+	gl.shaderSource(shader, sourceCode)
+	const log = gl.compileShader(shader)
+	if (log) console.log(log)
+	return shader
+}
          
 var vertex_buffer = gl.createBuffer()
 gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer)
@@ -17,15 +30,11 @@ var index_Buffer = gl.createBuffer()
 gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, index_Buffer)
 gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW)
 
-var vertCode = "attribute vec3 coordinates; void main(void) { gl_Position = vec4(coordinates, 1.0); }"
-var vertShader = gl.createShader(gl.VERTEX_SHADER)
-gl.shaderSource(vertShader, vertCode)
-gl.compileShader(vertShader)
+const vertShader = createShader(gl.VERTEX_SHADER, "attribute vec3 coordinates; void main(void) { gl_Position = vec4(coordinates, 1.0); }")
+const fragShader = createShader(gl.FRAGMENT_SHADER, "void main() { gl_FragColor = vec4(0.5, 0.5, 1, 1); }")
 
-var fragCode = "void main(void) { gl_FragColor = vec4(1, 0, 0, 1); }"
-var fragShader = gl.createShader(gl.FRAGMENT_SHADER)
-gl.shaderSource(fragShader, fragCode)
-gl.compileShader(fragShader)
+if (!vertShader || !fragShader)
+	exit()
 
 var shaderProgram = gl.createProgram()
 gl.attachShader(shaderProgram, vertShader)
