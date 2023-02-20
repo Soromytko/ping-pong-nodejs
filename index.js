@@ -1,6 +1,6 @@
 canvas = document.getElementById('canvas')
 gl = canvas.getContext('webgl')
-      
+
 var vertices = [
 	-1, -1, 0,
 	0, 1, 0,
@@ -22,7 +22,7 @@ var vertShader = gl.createShader(gl.VERTEX_SHADER)
 gl.shaderSource(vertShader, vertCode)
 gl.compileShader(vertShader)
 
-var fragCode = "void main(void) { gl_FragColor = vec4(1, 0, 0, 1); }"
+var fragCode = "void main(void) { gl_FragColor = vec4(0.3, 0.8, 0.0, 1); }"
 var fragShader = gl.createShader(gl.FRAGMENT_SHADER)
 gl.shaderSource(fragShader, fragCode)
 gl.compileShader(fragShader)
